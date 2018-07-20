@@ -1,4 +1,4 @@
-var mLucyNumber : Int;
+var mLucyNumber : Int;//
     mLucyNumber=6;
     println(mLucyNumber);
     
