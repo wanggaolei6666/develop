@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="canvasdraw">
+        <attr name="name" format="string" />
+        <attr name="color" format="color" />
+        <attr name="title" format="string"/>
+        <attr name="isShow" format="boolean"/>
+    </declare-styleable>
+</resources>
