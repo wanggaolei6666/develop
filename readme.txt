@@ -1,9 +1,12 @@
-1 ±àĞ´toolbarÎÄ¼ş·ÅÔÚlayoutµØÏÂ
 
-2 ÔÚstyle.xml ÖĞÉèÖÃÖ÷ÌâÎªTheme.AppCompat.Light.NoActionBar
+1 ç¼–å†™toolbaræ–‡ä»¶æ”¾åœ¨layoutåœ°ä¸‹
 
-
-3 ÔÚ×Ô¼ºµÄÒªÏÔÊ¾µÄ²¼¾ÖÎÄ¼şÀïÃæ£¬ÉèÖÃandroid:fitsSystemWindows="true"   ´ËÊôĞÔÔÚ¸ù²¿¾ÖÉèÖÃ
+2 åœ¨style.xml ä¸­è®¾ç½®ä¸»é¢˜ä¸ºTheme.AppCompat.Light.NoActionBar
 
 
-4 ¼Ì³ĞColorThemActivityÖØĞ´Æä·½·¨
+3 åœ¨è‡ªå·±çš„è¦æ˜¾ç¤ºçš„å¸ƒå±€æ–‡ä»¶é‡Œé¢ï¼Œè®¾ç½®android:fitsSystemWindows="true"   æ­¤å±æ€§åœ¨æ ¹éƒ¨å±€è®¾ç½®
+
+
+4 ç»§æ‰¿ColorThemActivityé‡å†™å…¶æ–¹æ³•
+
+2018/7/20 update gitlab

@@ -1,0 +1,44 @@
+var mLucyNumber : Int;//
+    mLucyNumber=6;
+    println(mLucyNumber);
+    
+    fun getKotlinStr(paramOne:String,paramTwo:String):Int?{
+        if(null==paramOne||null==paramTwo){
+            return -1
+        }else{
+             if(paramOne==paramTwo){
+            	return 0;
+        	}else{
+                return 1;
+            }
+        }
+     }
+	    println(getKotlinStr("1","1"));
+    
+    
+    fun testWhenFunction(args:Any):Any=
+        when(args){
+      1          -> 1
+      2    -> "二师兄"
+      is Long    -> "杀悟净"
+      !is String -> "唐玄奘"
+      else       -> "白龙马"
+        }
+    	
+        if(testWhenFunction(1L) is Int){
+             print("True");
+        }else{
+          print("False");  
+        }
+    
+   
+    
+    var numA:Int =0;
+    var numB: Int = if ( numA > 2 ) 3 else 5 
+  	println(numB);
+    
+    val items = listOf("apple", "banana", "kiwi")
+    
+   for(itemValue in items){
+       println(itemValue);
+   }
