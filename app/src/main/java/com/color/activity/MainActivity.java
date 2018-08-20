@@ -1,24 +1,30 @@
 package com.color.activity;
 
-import android.animation.Animator;
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
-import android.view.animation.LinearInterpolator;
+
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.color.bean.OnDownloadListener;
 import com.color.them.R;
 import com.color.them.com.color.util.ConstantUtil;
+import com.color.util.DownLoadUtil;
+import com.color.util.PermissionUtil;
 import com.example.colorthemmodule.ColorThemActivity;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,6 +39,11 @@ public class MainActivity extends ColorThemActivity implements View.OnClickListe
     private CanvasDraw mCanvas;
     private int i = -1;
     private int updateValue;
+    private ProgressBar mProgress;
+    public static boolean isPermission=false;
+    private String url="http://58.218.205.252:8666/data/wisegame/38a9a1e9696e730d/chuzhouyiyuan_3.apk?business_id=9029&task_id=6622724406056648705&from=a1101.apk";
+    private TextView mProBarDesc;
+
     @SuppressLint({"HandlerLeak", "ObjectAnimatorBinding"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +56,8 @@ public class MainActivity extends ColorThemActivity implements View.OnClickListe
         mRootView = (RelativeLayout) findViewById(R.id.root_view);
         mTextView = (TextView) findViewById(R.id.test_desc);
         mCanvas = (CanvasDraw) findViewById(R.id.canvas_color);
+        mProgress=(ProgressBar) findViewById(R.id.pro_bar);
+        mProBarDesc = (TextView) findViewById(R.id.probar_desc);
         mHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -64,6 +77,43 @@ public class MainActivity extends ColorThemActivity implements View.OnClickListe
         };
         mTextView.setOnClickListener(this);
         mHandler.sendEmptyMessage(ConstantUtil.HANDELR_TAG);
+        PermissionUtil.applicationPermission(getApplicationContext(),this);
+        if (isPermission){
+            DownLoadUtil.getInstance().download(url, "download", new OnDownloadListener() {
+                @Override
+                public void onDownloadFailed(final String message) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Log.e("fileDownload", message );
+                            Toast.makeText(MainActivity.this, "下载失败"+"\t"+message, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+
+                @Override
+                public void onDownloading(final int progress) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mProgress.setProgress(progress);
+                            mProBarDesc.setText(progress+"%");
+                            Log.e("progress", "run: "+progress);
+                        }
+                    });
+                }
+
+                @Override
+                public void onDownloadSuccess(File file) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(MainActivity.this, "下载完成", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            });
+        }
 
 //        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(mTextView, "textColor", mTextView.getX(), updateValue);
 //        ValueAnimator valueAnimator = ValueAnimator.ofFloat(mTextView.getX(), mTextView.getWidth());
@@ -161,6 +211,20 @@ public class MainActivity extends ColorThemActivity implements View.OnClickListe
             case R.id.test_desc:
                 startActivity(new Intent(this,LoginActivity.class));
                 break;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        for (int j = 0; j <grantResults.length; j++) {
+            if (grantResults[j]== PackageManager.PERMISSION_GRANTED){
+                Toast.makeText(this, "已授权"+permissions[i], Toast.LENGTH_SHORT).show();
+                isPermission=true;
+            }else{
+                Toast.makeText(this, "未授权"+permissions[i], Toast.LENGTH_SHORT).show();
+                isPermission=false;
+            }
         }
     }
 }

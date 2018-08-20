@@ -17,6 +17,7 @@ import android.view.View;
 public class CanvasDraw extends View {
     private int postIndex;
     private Paint mPaint;
+
     private int delta = 15;
     private float mTextHeight;
     private float mTextWidth;
@@ -47,6 +48,8 @@ public class CanvasDraw extends View {
         Paint.FontMetrics fontMetrics = mPaint.getFontMetrics();
         mTextHeight = fontMetrics.bottom-fontMetrics.descent-fontMetrics.ascent;
         mTextWidth  = mPaint.measureText(mText);
+
+
     }
     /**
      *计算 控件的宽高
@@ -94,6 +97,8 @@ public class CanvasDraw extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+
+
         Bitmap srcBitmap = Bitmap.createBitmap(getMeasuredWidth(),getMeasuredHeight(), Bitmap.Config.ARGB_8888);
         Canvas srcCanvas = new Canvas(srcBitmap);
         srcCanvas.drawText(mText, 0, mTextHeight, mPaint);
