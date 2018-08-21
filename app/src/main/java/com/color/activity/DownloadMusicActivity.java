@@ -10,6 +10,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.color.bean.Hash;
+import com.color.bean.MusicResult;
 import com.color.bean.OnDownloadListener;
 import com.color.bean.RequestResult;
 import com.color.them.R;
@@ -30,6 +31,7 @@ public class DownloadMusicActivity extends AppCompatActivity implements RequestR
     private Hash mJsonResult;
     private String fileHash;
     private String albAlbumID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,31 +43,84 @@ public class DownloadMusicActivity extends AppCompatActivity implements RequestR
 
     public void downLoadMusic(View view) {
         getMusicHashAndId();
-
-
     }
 
-    private void getMusicHashAndId(){
-        String url=String.format(BaseApi.searchMusic,mEditText.getText().toString().trim());
-        Log.e("urlUtil", ""+url );
-        OkHttpManager.getInstance().requestMehtod(url,this);
+    private void getMusicHashAndId() {
+        String url = String.format(BaseApi.searchMusic, mEditText.getText().toString().trim());
+        Log.e("urlUtil", "" + url);
+        OkHttpManager.getInstance().requestMehtod(url, this);
+    }
+
+    private void downLoadMusic(String hash, String albAlbumID) {
+        String url = String.format(BaseApi.musicInfo, hash, albAlbumID);
+        OkHttpManager.getInstance().requestMehtod(url, new RequestResult() {
+            @Override
+            public void requestSuccess(String json) {
+                mGson = new Gson();
+                MusicResult musicResult = mGson.fromJson(json, MusicResult.class);
+                String url = musicResult.getData().getPlay_url();
+                download(url);
+            }
+
+            @Override
+            public void requestFailed(final String errorMsg) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(DownloadMusicActivity.this, "" + errorMsg, Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+    }
+
+    private void download(String url) {
+        DownLoadUtil.getInstance().download(url, "leige", new OnDownloadListener() {
+            @Override
+            public void onDownloadFailed(final String message) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(DownloadMusicActivity.this, "download failed\t" + message, Toast.LENGTH_SHORT).show();
+                        mDownMusic.setEnabled(true);
+                        mDownMusic.setText("DOWNLOAD");
+                    }
+                });
+            }
+
+            @Override
+            public void onDownloading(final int progress) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mProgressBar.setProgress(progress);
+                        mDownMusic.setText(progress + "%");
+                        mDownMusic.setEnabled(false);
+                    }
+                });
+            }
+
+            @Override
+            public void onDownloadSuccess(File file) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mDownMusic.setEnabled(true);
+                        mDownMusic.setText("DOWNLOAD");
+                        Toast.makeText(DownloadMusicActivity.this, "download success", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
     }
 
     @Override
     public void requestSuccess(String json) {
-        Log.e("jsonResult", ""+json );
-        //        mGson = new Gson();
-//        mJsonResult = mGson.fromJson(json, Hash.class);
-//        fileHash=mJsonResult.getData().getLists().get(0).getFileHash();
-//        albAlbumID=mJsonResult.getData().getLists().get(0).getAlbumID();
-//        final String url=String.format(BaseApi.musicInfo,fileHash,albAlbumID);
-//        Log.e("myUrl", ""+url );
-//        runOnUiThread(new Runnable() {
-//            @Override
-//            public void run() {
-//                mDownMusic.setText(url);
-//            }
-//        });
+        mGson = new Gson();
+        mJsonResult = mGson.fromJson(json, Hash.class);
+        fileHash = mJsonResult.getData().getLists().get(0).getFileHash();
+        albAlbumID = mJsonResult.getData().getLists().get(0).getAlbumID();
+        downLoadMusic(fileHash, albAlbumID);
     }
 
     @Override
@@ -73,7 +128,7 @@ public class DownloadMusicActivity extends AppCompatActivity implements RequestR
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(DownloadMusicActivity.this, ""+errorMsg, Toast.LENGTH_SHORT).show();
+                Toast.makeText(DownloadMusicActivity.this, "" + errorMsg, Toast.LENGTH_SHORT).show();
             }
         });
     }

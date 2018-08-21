@@ -9,6 +9,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -23,6 +25,7 @@ import okhttp3.Response;
 public class DownLoadUtil {
     private static DownLoadUtil downloadUtil;
     private final OkHttpClient okHttpClient;
+    private final SimpleDateFormat df;
 
     public static DownLoadUtil getInstance() {
         if (downloadUtil == null) {
@@ -33,6 +36,9 @@ public class DownLoadUtil {
 
     private DownLoadUtil() {
         okHttpClient = new OkHttpClient();
+        //设置日期格式
+        df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
     }
 
     public void download(final String url, final String saveDir, final OnDownloadListener listener) {
@@ -55,7 +61,7 @@ public class DownLoadUtil {
                 try {
                     is = response.body().byteStream();
                     long total = response.body().contentLength();
-                    File file = new File(savePath, "music");
+                    File file = new File(savePath, ""+df.format(new Date())+".mp3");
                     fos = new FileOutputStream(file);
                     long sum = 0;
                     while ((len = is.read(buf)) != -1) {
