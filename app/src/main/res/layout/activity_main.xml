@@ -8,10 +8,12 @@
     >
 
     <include
+
         android:id="@+id/toobar"
         layout="@layout/toobar_layout" />
 
     <TextView
+
         android:id="@+id/test_desc"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/activity_horizontal_margin"
@@ -23,17 +25,27 @@
 
         android:id="@+id/canvas_color"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="20dp"
         android:layout_centerVertical="true"
         android:layout_margin="10dp" />
     <TextView
+        android:onClick="download"
+        android:layout_below="@id/test_desc"
         android:id="@+id/probar_desc"
         android:textSize="16sp"
+        android:layout_marginLeft="6dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <ProgressBar
         android:layout_below="@id/probar_desc"
         android:id="@+id/pro_bar"
+        android:layout_margin="6dp"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="6dp" />
+    <ProgressBar
+        android:layout_below="@id/pro_bar"
+        android:id="@+id/pro_bar1"
         android:layout_margin="6dp"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="match_parent"

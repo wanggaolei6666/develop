@@ -19,7 +19,7 @@ import android.widget.Toast;
 
 import com.color.bean.OnDownloadListener;
 import com.color.them.R;
-import com.color.them.com.color.util.ConstantUtil;
+import com.color.util.ConstantUtil;
 import com.color.util.DownLoadUtil;
 import com.color.util.PermissionUtil;
 import com.example.colorthemmodule.ColorThemActivity;
@@ -40,10 +40,10 @@ public class MainActivity extends ColorThemActivity implements View.OnClickListe
     private int i = -1;
     private int updateValue;
     private ProgressBar mProgress;
+    private ProgressBar mProgress1;
     public static boolean isPermission=false;
     private String url="http://58.218.205.252:8666/data/wisegame/38a9a1e9696e730d/chuzhouyiyuan_3.apk?business_id=9029&task_id=6622724406056648705&from=a1101.apk";
     private TextView mProBarDesc;
-
     @SuppressLint({"HandlerLeak", "ObjectAnimatorBinding"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +57,7 @@ public class MainActivity extends ColorThemActivity implements View.OnClickListe
         mTextView = (TextView) findViewById(R.id.test_desc);
         mCanvas = (CanvasDraw) findViewById(R.id.canvas_color);
         mProgress=(ProgressBar) findViewById(R.id.pro_bar);
+        mProgress1=(ProgressBar) findViewById(R.id.pro_bar1);
         mProBarDesc = (TextView) findViewById(R.id.probar_desc);
         mHandler = new Handler() {
             @Override
@@ -207,6 +208,8 @@ public class MainActivity extends ColorThemActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+
+
         switch (v.getId()) {
             case R.id.test_desc:
                 startActivity(new Intent(this,LoginActivity.class));

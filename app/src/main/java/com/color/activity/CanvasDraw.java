@@ -40,7 +40,7 @@ public class CanvasDraw extends View {
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         xformode = new PorterDuffXfermode(PorterDuff.Mode.SRC_IN);
         mPaint.setColor(Color.GREEN);
-        mPaint.setTextSize(60.0f);
+        mPaint.setTextSize(20.0f);
         mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
         mPaint.setXfermode(null);
         mPaint.setTextAlign(Paint.Align.LEFT);
