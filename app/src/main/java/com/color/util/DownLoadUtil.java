@@ -41,7 +41,7 @@ public class DownLoadUtil {
 
     }
 
-    public void download(final String url, final String saveDir, final OnDownloadListener listener) {
+    public void download(final String url, final String saveDir, final String musicName, final OnDownloadListener listener) {
         Request request = new Request.Builder().url(url).build();
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
@@ -61,7 +61,7 @@ public class DownLoadUtil {
                 try {
                     is = response.body().byteStream();
                     long total = response.body().contentLength();
-                    File file = new File(savePath, ""+df.format(new Date())+".mp3");
+                    File file = new File(savePath, musicName);
                     fos = new FileOutputStream(file);
                     long sum = 0;
                     while ((len = is.read(buf)) != -1) {

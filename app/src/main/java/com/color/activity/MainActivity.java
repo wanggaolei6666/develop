@@ -80,40 +80,7 @@ public class MainActivity extends ColorThemActivity implements View.OnClickListe
         mHandler.sendEmptyMessage(ConstantUtil.HANDELR_TAG);
         PermissionUtil.applicationPermission(getApplicationContext(),this);
         if (isPermission){
-            DownLoadUtil.getInstance().download(url, "download", new OnDownloadListener() {
-                @Override
-                public void onDownloadFailed(final String message) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Log.e("fileDownload", message );
-                            Toast.makeText(MainActivity.this, "下载失败"+"\t"+message, Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
 
-                @Override
-                public void onDownloading(final int progress) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            mProgress.setProgress(progress);
-                            mProBarDesc.setText(progress+"%");
-                            Log.e("progress", "run: "+progress);
-                        }
-                    });
-                }
-
-                @Override
-                public void onDownloadSuccess(File file) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(MainActivity.this, "下载完成", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-            });
         }
 
 //        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(mTextView, "textColor", mTextView.getX(), updateValue);
