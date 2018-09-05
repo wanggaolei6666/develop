@@ -13,8 +13,7 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="磊哥下载器"
-        android:roundIcon="@mipmap/icon"
+        android:label=""
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name="com.color.activity.MainActivity">
@@ -23,7 +22,7 @@
         <activity
             android:name="com.color.activity.LoginActivity"
             android:label="@string/title_activity_login" />
-        <activity android:name="com.color.activity.DownloadMusicActivity">
+        <activity android:name="com.color.download.view.DownloadMusicActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

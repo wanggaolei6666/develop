@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ColorThem.iml" filepath="$PROJECT_DIR$/ColorThem.iml" />
+      <module fileurl="file://D:\wanggaolei\androidProject\ColorThemProjects\ColorThem.iml" filepath="D:\wanggaolei\androidProject\ColorThemProjects\ColorThem.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ColorThemProjects.iml" filepath="$PROJECT_DIR$/ColorThemProjects.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://D:\wanggaolei\androidProject\ColorThemProjects\app\app.iml" filepath="D:\wanggaolei\androidProject\ColorThemProjects\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/colorthemmodule/colorthemmodule.iml" filepath="$PROJECT_DIR$/colorthemmodule/colorthemmodule.iml" />
+      <module fileurl="file://D:\wanggaolei\androidProject\ColorThemProjects\colorthemmodule\colorthemmodule.iml" filepath="D:\wanggaolei\androidProject\ColorThemProjects\colorthemmodule\colorthemmodule.iml" />
     </modules>
   </component>
 </project>

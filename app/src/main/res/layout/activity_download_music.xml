@@ -5,29 +5,16 @@
     android:layout_height="match_parent"
     android:id="@+id/root_background"
     android:fitsSystemWindows="true"
-    tools:context="com.color.activity.DownloadMusicActivity">
+    tools:context="com.color.download.view.DownloadMusicActivity">
+    <include
 
-    <ProgressBar
-        android:id="@+id/pro"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:id="@+id/toobar"
+        layout="@layout/toobar_layout" />
+    <android.support.v7.widget.RecyclerView
+        android:layout_below="@id/toobar"
+        android:id="@+id/music_list"
         android:layout_width="match_parent"
-        android:layout_height="1.5dp"
-        android:layout_margin="10dp" />
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/music_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/pro"
-        android:layout_margin="10dp"
-        android:hint="Please input the name of the song." />
-
-    <Button
-        android:id="@+id/download_music"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/music_name"
-        android:layout_centerHorizontal="true"
-        android:onClick="downLoadMusic"
-        android:text="DownLoad" />
+    </android.support.v7.widget.RecyclerView>
 </RelativeLayout>

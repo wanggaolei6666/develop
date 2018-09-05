@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ConstantUtil {
     public static  final  int HANDELR_TAG=1001;
-
+    public static final int DOWNLOAD_MUSIC=0x001;
 
 
     private int errorCode;

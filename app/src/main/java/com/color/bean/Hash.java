@@ -15,6 +15,11 @@ public class Hash {
         FileName = fileName;
     }
 
+    public Hash(String fileHash, String albumID) {
+        FileHash = fileHash;
+        AlbumID = albumID;
+    }
+
     private String AlbumID;
 
     public String getFileHash() {
