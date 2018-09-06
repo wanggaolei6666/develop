@@ -78,6 +78,9 @@ public class DownloadMusicActivity extends ColorThemActivity implements DownLoad
                         mRecy.setAdapter(recyclerviewAdapter);
                         mRecy.setLayoutManager(new LinearLayoutManager(DownloadMusicActivity.this, LinearLayoutManager.VERTICAL, false));
                         break;
+                    case ConstantUtil.DOWNLOAD_MUSIC_FAILED:
+                        Toast.makeText(DownloadMusicActivity.this, "数据加载失败", Toast.LENGTH_SHORT).show();
+                        break;
 
                 }
             }
@@ -122,13 +125,13 @@ public class DownloadMusicActivity extends ColorThemActivity implements DownLoad
 
     @Override
     public void callSuccess(List<Hash> list) {
-
       musicInfo=list;
       mHandler.sendEmptyMessage(ConstantUtil.DOWNLOAD_MUSIC);
     }
 
     @Override
     public void callFailed(String msg) {
-        Toast.makeText(this, "数据加载失败", Toast.LENGTH_SHORT).show();
+        mHandler.sendEmptyMessage(ConstantUtil.DOWNLOAD_MUSIC_FAILED);
+
     }
 }
