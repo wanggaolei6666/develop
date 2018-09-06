@@ -28,6 +28,7 @@ import com.color.bean.OnDownloadListener;
 import com.color.bean.RequestResult;
 import com.color.download.presenter.DownLoadPresenter;
 import com.color.download.presenter.RecyclerviewAdapter;
+import com.color.download.presenter.RecyclerviewAdapter.OnItemClickListener;
 import com.color.them.R;
 import com.color.util.BaseApi;
 import com.color.util.ConstantUtil;
@@ -47,7 +48,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DownloadMusicActivity extends ColorThemActivity implements DownLoadCallBack {
+public class DownloadMusicActivity extends ColorThemActivity implements DownLoadCallBack,OnItemClickListener, DownloadResultInterface {
 
     private ProgressBar mProgressBar;
     private Map<String, Integer> collectId = new HashMap<>();
@@ -64,8 +65,9 @@ public class DownloadMusicActivity extends ColorThemActivity implements DownLoad
         super.onCreate(savedInstanceState);
         PermissionUtil.applicationPermission(getApplicationContext(), this);
         mRecy = (RecyclerView) findViewById(R.id.music_list);
+
         downLoadPresenter = new DownLoadPresenter(this);
-        downLoadPresenter.getMusicInfo("情花");
+        downLoadPresenter.getMusicInfo("霍元甲");
         mRelativeLayout = (RelativeLayout) findViewById(R.id.root_background);
         mRelativeLayout.setBackgroundColor(Color.BLUE);
         mHandler = new Handler() {
@@ -74,12 +76,30 @@ public class DownloadMusicActivity extends ColorThemActivity implements DownLoad
                 super.handleMessage(msg);
                 switch (msg.what) {
                     case ConstantUtil.DOWNLOAD_MUSIC:
-                        RecyclerviewAdapter recyclerviewAdapter= new RecyclerviewAdapter(DownloadMusicActivity.this,musicInfo);
+                        RecyclerviewAdapter recyclerviewAdapter= new RecyclerviewAdapter(DownloadMusicActivity.this,musicInfo,DownloadMusicActivity.this);
                         mRecy.setAdapter(recyclerviewAdapter);
                         mRecy.setLayoutManager(new LinearLayoutManager(DownloadMusicActivity.this, LinearLayoutManager.VERTICAL, false));
                         break;
-                    case ConstantUtil.DOWNLOAD_MUSIC_FAILED:
-                        Toast.makeText(DownloadMusicActivity.this, "数据加载失败", Toast.LENGTH_SHORT).show();
+                    case 0:
+                        mProgressBar.setVisibility(View.VISIBLE);
+                        Bundle data = msg.getData();
+                        int progress=data.getInt("Progress");
+                        mProgressBar.setProgress(progress);
+                        break;
+
+                    case 1:
+                        mProgressBar.setVisibility(View.GONE);
+
+                        Bundle downSuccess = msg.getData();
+                        String downloadSuccess=downSuccess.getString("DownloadSuccess");
+                        Toast.makeText(DownloadMusicActivity.this, ""+downloadSuccess, Toast.LENGTH_SHORT).show();
+                        break;
+
+                    case 2:
+                        mProgressBar.setVisibility(View.GONE);
+                        Bundle downFailed = msg.getData();
+                        String downloadFailed=downFailed.getString("ErrorMsg");
+                        Toast.makeText(DownloadMusicActivity.this, ""+downloadFailed, Toast.LENGTH_SHORT).show();
                         break;
 
                 }
@@ -132,6 +152,48 @@ public class DownloadMusicActivity extends ColorThemActivity implements DownLoad
     @Override
     public void callFailed(String msg) {
         mHandler.sendEmptyMessage(ConstantUtil.DOWNLOAD_MUSIC_FAILED);
+
+    }
+
+    @Override
+    public void onItemClick(View view) {
+        int position=mRecy.getChildAdapterPosition(view);
+        mProgressBar=view.findViewById(R.id.progress_bar);
+        downLoadPresenter.downloadMusic(musicInfo.get(position).getFileHash(),musicInfo.get(position).getAlbumID(),musicInfo.get(position).getFileName()+"."+musicInfo.get(position).getExtName(),DownloadMusicActivity.this);
+    }
+
+    @Override
+    public void downloadFailed(String msg) {
+        Message message = new Message();
+        Bundle bundle = new Bundle();
+        bundle.putString("ErrorMsg",msg);
+        message.setData(bundle);
+        message.arg1=2;
+        mHandler.sendMessage(message);
+    }
+
+    @Override
+    public void download(int progress) {
+        Log.e("download", ""+progress );
+        Message message = new Message();
+        Bundle bundle = new Bundle();
+        bundle.putInt("Progress",progress);
+        message.setData(bundle);
+        message.arg1=0;
+        mHandler.sendMessage(message);
+
+
+    }
+
+    @Override
+    public void downloadSuccess(File file) {
+        Log.e("download", "下载完成");
+        Message message = new Message();
+        Bundle bundle = new Bundle();
+        bundle.putString("DownloadSuccess","下载完成");
+        message.setData(bundle);
+        message.arg1=1;
+        mHandler.sendMessage(message);
 
     }
 }

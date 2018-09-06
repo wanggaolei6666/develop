@@ -34,6 +34,8 @@ public class MDownloadMusic {
     private Gson mGson;
     private String TAG = "MDownloadMusic";
     private List<Hash> musicInfo = new ArrayList<>();
+    private String albumName;
+
     public void reqMusicList(String musicName, final IMusicInfo listener) {
         String url = String.format(BaseApi.searchMusic, musicName.toString().trim());
         OkHttpManager.getInstance().requestMehtod(url, new RequestResult() {
@@ -47,8 +49,10 @@ public class MDownloadMusic {
                         albAlbumID = jsonArray.getJSONObject(i).getString("AlbumID");
                         musicFormat = jsonArray.getJSONObject(i).getString("ExtName");
                         fileName = jsonArray.getJSONObject(i).getString("FileName");
+                        albumName = jsonArray.getJSONObject(i).getString("AlbumName");
+
                         musicNameInfo = fileName.replaceAll("<em>|</em>", "");
-                        musicInfo.add(new Hash(fileHash,albAlbumID,musicFormat,musicNameInfo));
+                        musicInfo.add(new Hash(fileHash,albAlbumID,musicFormat,musicNameInfo,albumName));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -65,7 +69,7 @@ public class MDownloadMusic {
         });
     }
 
-    private void downLoadMusic(String hash, String albAlbumID, final String musicName, final DownloadResultInterface listener) {
+    public void downLoadMusic(String hash, String albAlbumID, final String musicName, final DownloadResultInterface listener) {
         String url = String.format(BaseApi.musicInfo, hash, albAlbumID);
         OkHttpManager.getInstance().requestMehtod(url, new RequestResult() {
             @Override

@@ -8,11 +8,21 @@ package com.color.bean;
 public class Hash {
     private String FileHash;
 
-    public Hash(String fileHash, String albumID, String extName, String fileName) {
+    public String getAlbumName() {
+        return AlbumName;
+    }
+
+    public void setAlbumName(String albumName) {
+        AlbumName = albumName;
+    }
+
+    private String AlbumName;
+    public Hash(String fileHash, String albumID, String extName, String fileName,String albumName) {
         FileHash = fileHash;
         AlbumID = albumID;
         ExtName = extName;
         FileName = fileName;
+        this.AlbumName=albumName;
     }
 
     public Hash(String fileHash, String albumID) {

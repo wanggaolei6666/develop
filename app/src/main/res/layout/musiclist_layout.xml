@@ -8,7 +8,9 @@
         android:id="@+id/cardview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="3dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
         app:cardCornerRadius="5dp"
         app:cardElevation="5dp">
 
@@ -16,38 +18,47 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
+            <ProgressBar
+
+                android:id="@+id/progress_bar"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="3dp"
+                android:visibility="gone" />
+
             <ImageView
-                android:layout_marginLeft="10dp"
                 android:id="@+id/add_music"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
                 android:src="@mipmap/ic_launcher" />
 
             <LinearLayout
-                android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@id/add_music"
                 android:orientation="vertical">
 
                 <TextView
-                    android:text="66666"
                     android:id="@+id/music_name"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="66666"
                     android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/album"
-                    android:text="6666"
-                    android:layout_marginBottom="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="5dp"
+                    android:text="6666"
                     android:textSize="10sp" />
 
             </LinearLayout>

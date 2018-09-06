@@ -24,11 +24,12 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
     private Context mContext;
     private LayoutInflater inflater;
     private ViewHolder mViewHolder;
-
-    public RecyclerviewAdapter(Context context, List<Hash> data) {
+    private OnItemClickListener listener;
+    public RecyclerviewAdapter(Context context, List<Hash> data,OnItemClickListener listener) {
         this.data=data;
         mContext=context;
         inflater = LayoutInflater.from(mContext);
+        this.listener=listener;
     }
 
     @Override
@@ -43,7 +44,7 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
             holder.musicName.setText(data.get(position).getFileName());
-            holder.album.setText(data.get(position).getExtName());
+            holder.album.setText(data.get(position).getFileName()+"-"+data.get(position).getAlbumName());
     }
 
     @Override
@@ -58,9 +59,18 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
             super(itemView);
             musicName=itemView.findViewById(R.id.music_name);
             album=itemView.findViewById(R.id.album);
-
-
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onItemClick(v);
+                }
+            });
         }
-    }
 
+
+    }
+    public  interface OnItemClickListener {
+        void onItemClick(View view);
+
+    }
 }

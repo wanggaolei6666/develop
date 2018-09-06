@@ -8,6 +8,7 @@ import android.util.Log;
 import com.color.bean.Hash;
 import com.color.download.model.MDownloadMusic;
 import com.color.download.view.DownLoadCallBack;
+import com.color.download.view.DownloadResultInterface;
 import com.color.download.view.IMusicInfo;
 
 import java.util.List;
@@ -30,6 +31,11 @@ public class DownLoadPresenter implements IMusicInfo {
             }
         };
     }
+    public void downloadMusic(String hash, String albAlbumID, final String musicName, final DownloadResultInterface listener){
+        mDownloadMusic.downLoadMusic(hash,albAlbumID,musicName,listener);
+    }
+
+
     public void getMusicInfo(String musicName){
         Log.e("ThreadIsMainThread", "getMusicInfo:"+Thread.currentThread().getId() );
         mDownloadMusic.reqMusicList(musicName,this);
