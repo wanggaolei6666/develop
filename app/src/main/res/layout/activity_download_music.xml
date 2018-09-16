@@ -9,8 +9,18 @@
     <include
         android:id="@+id/toobar"
         layout="@layout/toobar_layout" />
-    <android.support.v7.widget.RecyclerView
+    <EditText
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
+        android:background="@drawable/editplus_background"
         android:layout_below="@id/toobar"
+        android:layout_marginBottom="5dp"
+        android:id="@+id/inupt_music_name"
+        android:imeOptions="actionSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <android.support.v7.widget.RecyclerView
+        android:layout_below="@id/inupt_music_name"
         android:id="@+id/music_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

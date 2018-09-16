@@ -5,6 +5,6 @@ package com.color.util;
  */
 
 public class BaseApi {
-    public static String searchMusic=" http://songsearch.kugou.com/song_search_v2?keyword=%1$s&page=1&pagesize=6&userid=-1&clientver=&platform=WebFilter&tag=em&filter=2&iscorrection=1&privilege_filter=0";
+    public static String searchMusic=" http://songsearch.kugou.com/song_search_v2?keyword=%1$s&page=1&pagesize=16&userid=-1&clientver=&platform=WebFilter&tag=em&filter=2&iscorrection=1&privilege_filter=0";
     public static String musicInfo="http://www.kugou.com/yy/index.php?r=play/getdata&hash=%1$s&album_id=%2$s&_=1497972864535";
 }

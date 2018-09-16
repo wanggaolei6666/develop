@@ -24,12 +24,6 @@ public class DownLoadPresenter implements IMusicInfo {
     public DownLoadPresenter(DownLoadCallBack mDownloadCallBack) {
         this.mDownloadCallBack=mDownloadCallBack;
         mDownloadMusic = new MDownloadMusic();
-        @SuppressLint("HandlerLeak") Handler handler = new Handler(){
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-            }
-        };
     }
     public void downloadMusic(String hash, String albAlbumID, final String musicName, final DownloadResultInterface listener){
         mDownloadMusic.downLoadMusic(hash,albAlbumID,musicName,listener);
@@ -37,19 +31,16 @@ public class DownLoadPresenter implements IMusicInfo {
 
 
     public void getMusicInfo(String musicName){
-        Log.e("ThreadIsMainThread", "getMusicInfo:"+Thread.currentThread().getId() );
         mDownloadMusic.reqMusicList(musicName,this);
     }
 
     @Override
     public void reqSuccess(List<Hash> list) {
-        Log.e("ThreadIsMainThread", ""+Thread.currentThread().getId() );
         mDownloadCallBack.callSuccess(list);
     }
 
     @Override
     public void reqFailed(String msg) {
-        Log.e("ThreadIsMainThread", "reqFailed"+Thread.currentThread().getId() );
         mDownloadCallBack.callFailed(msg);
     }
 }

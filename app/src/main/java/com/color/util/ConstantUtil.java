@@ -6,8 +6,9 @@ package com.color.util;
 
 public class ConstantUtil {
     public static  final  int HANDELR_TAG=1001;
-    public static final int DOWNLOAD_MUSIC=5;
-    public static final int DOWNLOAD_MUSIC_FAILED=2;
-    public static final int DOWNLOAD_MUSIC_SUCCESS=3;
-    public static final int DOWNLOADING=4;
+    public static final int DOWNLOAD_MUSIC=0x1002;
+    public static final int DOWNLOAD_MUSIC_FAILED=0x1003;
+    public static final int DOWNLOAD_MUSIC_SUCCESS=0x1004;
+    public static final int DOWNLOADING=0x1005;
+    public static final int  CHANGE_BACKGROUND_IMAGE=0x1006;
 }

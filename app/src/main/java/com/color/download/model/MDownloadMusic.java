@@ -77,7 +77,6 @@ public class MDownloadMusic {
                 mGson = new Gson();
                 final MusicResult musicResult = mGson.fromJson(json, MusicResult.class);
                 String url = musicResult.getData().getPlay_url();
-
                 download(url, musicName, listener);
             }
 
