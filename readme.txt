@@ -1,4 +1,3 @@
-
 1 编写toolbar文件放在layout地下
 
 2 在style.xml 中设置主题为Theme.AppCompat.Light.NoActionBar
@@ -8,5 +7,7 @@
 
 
 4 继承ColorThemActivity重写其方法
+
+Recommend a useful website https://www.jianshu.com/p/44a4a1c32b4f
 
 2018/7/20 update gitlab
