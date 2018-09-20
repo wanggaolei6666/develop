@@ -10,4 +10,5 @@
 
 Recommend a useful website https://www.jianshu.com/p/44a4a1c32b4f
 
+java threadColome https://www.cnblogs.com/cnmenglang/p/6273761.html
 2018/7/20 update gitlab
